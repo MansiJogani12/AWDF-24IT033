@@ -20,13 +20,13 @@ jobs:
             integrated-app/frontend/package-lock.json
       - name: Install backend dependencies
         working-directory: integrated-app/backend
-        run: npm ci
+        run: npm install
       - name: Lint backend
         working-directory: integrated-app/backend
         run: npm run lint
       - name: Install frontend dependencies
         working-directory: integrated-app/frontend
-        run: npm ci
+        run: npm install
       - name: Lint frontend
         working-directory: integrated-app/frontend
         run: npm run lint
@@ -46,7 +46,7 @@ jobs:
           node-version: 22
       - name: Install backend dependencies
         working-directory: integrated-app/backend
-        run: npm ci
+        run: npm install
       - name: Run backend tests
         working-directory: integrated-app/backend
         run: npm test
@@ -54,7 +54,7 @@ jobs:
           MONGO_URI: mongodb://localhost:27017/itue301_test
       - name: Install frontend dependencies
         working-directory: integrated-app/frontend
-        run: npm ci
+        run: npm install
       - name: Build frontend
         working-directory: integrated-app/frontend
         run: npm run build
