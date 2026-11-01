@@ -1,4 +1,4 @@
-# AWDF Practicals (ITUE301)
+# AWDF Practicals (ITUE301) - Mansi Jogani ( 24IT033 )
 
 This repo has 13 practicals, each in its own folder (`practical-1` … `practical-13`). One Docker command runs all of them at once, each on its own port, with a landing page that links to every practical.
 
