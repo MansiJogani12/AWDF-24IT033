@@ -1,0 +1,60 @@
+name: ITUE301 Integrated Application CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            integrated-app/backend/package-lock.json
+            integrated-app/frontend/package-lock.json
+      - name: Install backend dependencies
+        working-directory: integrated-app/backend
+        run: npm ci
+      - name: Lint backend
+        working-directory: integrated-app/backend
+        run: npm run lint
+      - name: Install frontend dependencies
+        working-directory: integrated-app/frontend
+        run: npm ci
+      - name: Lint frontend
+        working-directory: integrated-app/frontend
+        run: npm run lint
+
+  test-and-build:
+    needs: lint
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install backend dependencies
+        working-directory: integrated-app/backend
+        run: npm ci
+      - name: Run backend tests
+        working-directory: integrated-app/backend
+        run: npm test
+        env:
+          MONGO_URI: mongodb://localhost:27017/itue301_test
+      - name: Install frontend dependencies
+        working-directory: integrated-app/frontend
+        run: npm ci
+      - name: Build frontend
+        working-directory: integrated-app/frontend
+        run: npm run build

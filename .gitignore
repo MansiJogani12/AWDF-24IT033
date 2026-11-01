@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+*.log
+VIDEO_*.md
+VIDEO_*.html
+
+# Question papers, sample submissions and generated submission PDFs stay out of the code repo
+*.pdf
+submission/
+tools/submission/assets/
+
+# Local helper scripts and scratch artifacts
+generate_all_submissions.py
+create_screenshots.py
+scratch/
