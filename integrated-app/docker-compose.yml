@@ -4,7 +4,6 @@
 services:
   mongodb:
     image: mongo:7
-    container_name: taskdb
     ports:
       - "27017:27017" # optional: lets MongoDB Compass on the host connect
     volumes:
@@ -19,7 +18,6 @@ services:
 
   backend:
     build: ./backend
-    container_name: task-api
     ports:
       - "5000:5000"
     environment:
@@ -46,7 +44,6 @@ services:
       args:
         # The browser runs on the host, so it reaches the API through the host-mapped port
         VITE_API_URL: http://localhost:5000
-    container_name: task-ui
     ports:
       - "5173:80" # host 5173 -> nginx 80 inside the container
     depends_on:
